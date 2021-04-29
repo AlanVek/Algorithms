@@ -1,9 +1,5 @@
 import numpy as np
-from QR import qr as qr_old
-from QR2_Householder import qr as qr2
-from Useful.Timer import timer
 from scipy.sparse import eye as sparse_eye
-
 
 def givens(a, b):
     res, m = np.zeros(2), 1 - int(abs(a) > abs(b))
@@ -71,16 +67,3 @@ def qr4(A : np.array):
             R = Gx.dot(R)
 
     return q[:w].T, R[:w]
-
-A = np.random.randint(-10, 10, (2, 2))
-# A = np.zeros((1000, 1000))
-# A[:175, :175] = 0
-
-# q, r = qr4(A)
-
-# print(np.allclose(A, q.dot(r).round(2)))
-
-print('Old Version:', timer(qr_old, A, safe = True))
-print('Givens para:', timer(qr4, A))
-print('Givens sequ:', timer(qr3, A))
-print('Householder:', timer(qr2, A))
