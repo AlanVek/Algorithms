@@ -1,4 +1,4 @@
-from QR2_Householder import qr, np
+from QR import qr, np
 
 def eigenvalues(A):
     if A.shape == (1, 1): return np.array(A[0])
