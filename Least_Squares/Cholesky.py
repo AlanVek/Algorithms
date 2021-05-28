@@ -1,17 +1,14 @@
 import numpy as np
-from Solve_Triangular import solve_triangular
+from Least_Squares.Solve_Triangular import solve_triangular
 
 def cholesky(A : np.ndarray) -> np.ndarray:
     h, w = A.shape
     G = np.zeros((w, h))
 
     if h == w:
-        # if np.all(np.linalg.eigvals(A) > 0):
-            for i in range(h):
-                G[i, i] = np.sqrt(A[i, i] - np.dot(G[i, :i], G[i, :i]))
-                G[i + 1:w, i] = (A[i, i+1:w] - G[i + 1:w, :i].dot(G[i, :i])) / G[i, i]
-        # else:
-        #     raise Exception('Input error: Matrix must be positive semidefinite')
+        for i in range(h):
+            G[i, i] = np.sqrt(A[i, i] - np.dot(G[i, :i], G[i, :i]))
+            G[i + 1:w, i] = (A[i, i+1:w] - G[i + 1:w, :i].dot(G[i, :i])) / G[i, i]
     else:
         raise Exception('Dimension error: Matrix must be square')
     return G

@@ -1,5 +1,6 @@
 import numpy as np
-from Solve_Triangular import solve_triangular
+from Least_Squares.Solve_Triangular import solve_triangular
+
 
 # Version con Householder reflections.
 def qr(A : np.array, det = False):

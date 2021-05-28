@@ -1,5 +1,5 @@
 import numpy as np
-from LU import leastsq_lu
+from Least_Squares.LU import leastsq_lu
 import matplotlib.pyplot as plt
 from scipy.special import factorial
 from scipy.misc import derivative as scipy_deriv

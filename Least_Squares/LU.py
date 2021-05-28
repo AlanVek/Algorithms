@@ -1,7 +1,7 @@
 import numpy as np
 from scipy.sparse import eye as sparse_eye
-from Solve_Triangular import solve_triangular
 from scipy.linalg import lstsq
+from Least_Squares.Solve_Triangular import solve_triangular
 
 def lu(A : np.array, pivot_nonzero = False):
     h, w = A.shape
@@ -54,49 +54,21 @@ def inverse_lu(A):
 
     return (p.dot(inv_l.T.dot(inv_u.T))).T
 
-def test_leastsq():
+if __name__ == '__main__':
+
     tests = 1000
 
     for i in range(tests):
 
-        A = np.random.randint(-10, 10, (np.random.randint(100, 201),np.random.randint(2, 101)))
+        A = np.random.randint(-10, 10, (np.random.randint(100, 201), np.random.randint(2, 101)))
         b = np.random.randint(-10, 10, (A.shape[0], 1))
 
         worked = np.allclose(lstsq(A, b)[0], leastsq_lu(A, b))
 
         if not worked:
-            print('Failed leastsq')
-            return
+            print('Failed')
+            exit()
 
-    print('Worked leastsq')
+    print('Worked')
 
-
-def test_det():
-    tests = 1000
-
-    for i in range(tests):
-        h = np.random.randint(2, 201)
-        A = np.random.rand(h, h)
-
-        worked = np.isclose(det_lu(A), np.linalg.det(A), atol = 1e-3)
-
-        if not worked:
-            print('Failed det')
-            return
-
-    print('Worked det')
-
-from Useful.Timer import timer
-if __name__ == '__main__':
-    # test_leastsq()
-    # test_det()
-
-    A = np.random.randint(-10, 10, (800, 800))
-    print(timer(lu, A))
-    # A[:, 2] = A[:, 0]
-
-    # i1 = inverse_lu(A)
-    # i2 = np.linalg.inv(A)
-
-    # print(np.allclose(i1, i2))
 
